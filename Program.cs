@@ -38,8 +38,8 @@ class Program
                 case "show_all_digimons":
                     Ui.ShowDigimons(digimons);
                     break;
-                case "show_sorted_by_attack":
-                    Ui.ShowSortedByAttack(digimons);
+                case "show_sorted_by_Certain_Stat":
+                    Ui.ChooseStatSorting();
                     break;
                 case "show_stat_higher_than_threshold":
                     Ui.ChooseStatTypeAndThreshold();

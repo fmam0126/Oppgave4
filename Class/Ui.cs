@@ -14,15 +14,15 @@ public static class Ui
         var userInput = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Please select an option:")
-                .AddChoices(new[] { "[green]1.[/] Show all Digimons", "[green]2.[/] Show Digimons sorted by Attack", "[green]3.[/] Show Digimons with a specific stat higher than a threshold", "[green]4.[/] Exit" })
+                .AddChoices(new[] { "[green]1.[/] Show all Digimons", "[green]2.[/] Show Digimons sorted by a chosen stat", "[green]3.[/] Show Digimons with a specific stat higher than a threshold", "[green]4.[/] Exit" })
         );
 
         switch (userInput)
         {
             case "[green]1.[/] Show all Digimons":
                 return "show_all_digimons";
-            case "[green]2.[/] Show Digimons sorted by Attack":
-                return "show_sorted_by_attack";
+            case "[green]2.[/] Show Digimons sorted by a chosen stat":
+                return "show_sorted_by_Certain_Stat";
             case "[green]3.[/] Show Digimons with a specific stat higher than a threshold":
                 return "show_stat_higher_than_threshold";
             case "[green]4.[/] Exit":
@@ -67,18 +67,46 @@ public static class Ui
         AnsiConsole.Write(table);
     }
 
-
-    public static void ShowSortedByAttack(List<DigimonModel> digimons)
+    public static void ChooseStatSorting()
     {
-        AnsiConsole.MarkupLine("\nDigimons sorted by Attack:");
-        var filteredDigimons = digimons.OrderBy(digimon => digimon.Attack)
-                                        .ToList();
+        var statType = AnsiConsole.Prompt(
+            new SelectionPrompt<DigimonModel.StatType>()
+                .Title("Select a stat type to sort by:")
+                .AddChoices(Enum.GetValues<DigimonModel.StatType>())
+        );
+
+        ShowSortedByChosenStat(new DigimonReader().ReadCSV("DigiDB_digimonlist.csv"), statType);
+    }
+    public static void ShowSortedByChosenStat(List<DigimonModel> digimons, DigimonModel.StatType statType)
+    {
+        AnsiConsole.MarkupLine($"\nDigimons sorted by {statType}:");
+        var filteredDigimons = digimons.OrderBy(digimon => statType switch
+        {
+            DigimonModel.StatType.HP => digimon.HP,
+            DigimonModel.StatType.SP => digimon.SP,
+            DigimonModel.StatType.Attack => digimon.Attack,
+            DigimonModel.StatType.Defence => digimon.Defence,
+            DigimonModel.StatType.Intelligence => digimon.Intelligence,
+            DigimonModel.StatType.Speed => digimon.Speed,
+            _ => 0
+        })
+        .ToList();
         var table = new Table();
         table.AddColumn("Name");
-        table.AddColumn("Attack");
+        table.AddColumn($"{statType}");
         foreach (var digimon in filteredDigimons)
         {
-            table.AddRow($"[green]{digimon.Name}[/]", $"[red]{digimon.Attack}[/]");
+            int value = statType switch
+            {
+                DigimonModel.StatType.HP => digimon.HP,
+                DigimonModel.StatType.SP => digimon.SP,
+                DigimonModel.StatType.Attack => digimon.Attack,
+                DigimonModel.StatType.Defence => digimon.Defence,
+                DigimonModel.StatType.Intelligence => digimon.Intelligence,
+                DigimonModel.StatType.Speed => digimon.Speed,
+                _ => 0
+            };
+            table.AddRow($"[green]{digimon.Name}[/]", $"[red]{value}[/]");
         }
         AnsiConsole.Write(table);
     }
