@@ -68,15 +68,27 @@ public static class Ui
                 $"[blue]{digimon.Type}[/]",
                 $"[magenta]{digimon.Attribute}[/]",
                 $"[cyan]{digimon.Memory}[/]",
-                $"[red]{digimon.EquipSlots}[/]",
-                $"[green]{digimon.HP}[/]",
+                $"[LightSalmon1]{digimon.EquipSlots}[/]",
+                $"[red]{digimon.HP}[/]",
                 $"[yellow]{digimon.SP}[/]",
-                $"[blue]{digimon.Attack}[/]",
+                $"[red]{digimon.Attack}[/]",
                 $"[magenta]{digimon.Defence}[/]",
                 $"[cyan]{digimon.Intelligence}[/]",
-                $"[red]{digimon.Speed}[/]"
+                $"[blue]{digimon.Speed}[/]"
             );
         }
+        table.Columns[0].Footer("name");
+        table.Columns[1].Footer("stage");
+        table.Columns[2].Footer("type");
+        table.Columns[3].Footer("attribute");
+        table.Columns[4].Footer("memory");
+        table.Columns[5].Footer("equip slots");
+        table.Columns[6].Footer("hp");
+        table.Columns[7].Footer("sp");
+        table.Columns[8].Footer("attack");
+        table.Columns[9].Footer("defence");
+        table.Columns[10].Footer("intelligence");
+        table.Columns[11].Footer("speed");
         AnsiConsole.Write(table);
     }
 
@@ -127,6 +139,8 @@ public static class Ui
             };
             table.AddRow($"[green]{digimon.Name}[/]", $"[red]{value}[/]");
         }
+        table.Columns[0].Footer("name");
+        table.Columns[1].Footer($"{statType}");
         AnsiConsole.Write(table);
     }
 
@@ -203,6 +217,8 @@ public static class Ui
             table.AddRow($"[green]{digimon.Name}[/]", $"[red]{value}[/]");
 
         }
+        table.Columns[0].Footer("name");
+        table.Columns[1].Footer($"{statType}");
         AnsiConsole.Write(table);
         // digimons.Where(digimon => digimon.Attack > threshold)
         //                                 .ToList()
