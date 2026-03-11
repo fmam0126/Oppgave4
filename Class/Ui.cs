@@ -3,10 +3,15 @@ using Spectre.Console;
 
 public static class Ui
 {
+    /// <summary>
+    /// Displays a warning message in the console when an input string cannot be parsed as an integer.
+    /// </summary>
+    /// <param name="input">The input string that could not be parsed</param>
     public static void ParseWarning(string input)
     {
         AnsiConsole.MarkupLine($"[bold red]Warning:[/] Unable to parse '{input}' as an integer. Please Check the CSV file.");
     }
+
     /// <summary>
     /// Displays a menu to the user and prompts them to select an option using Spectre.Console's SelectionPrompt. Returns a string representing the selected option.
     /// </summary>
@@ -42,6 +47,7 @@ public static class Ui
                 return string.Empty;
         }
     }
+
     /// <summary>
     /// Displays a table of all digimons with their attributes and stats, using Spectre.Console for formatting.
     /// </summary>
@@ -79,18 +85,18 @@ public static class Ui
                 $"[blue]{digimon.Speed}[/]"
             );
         }
-        table.Columns[0].Footer("name");
-        table.Columns[1].Footer("stage");
-        table.Columns[2].Footer("type");
-        table.Columns[3].Footer("attribute");
-        table.Columns[4].Footer("memory");
-        table.Columns[5].Footer("equip slots");
-        table.Columns[6].Footer("hp");
-        table.Columns[7].Footer("sp");
-        table.Columns[8].Footer("attack");
-        table.Columns[9].Footer("defence");
-        table.Columns[10].Footer("intelligence");
-        table.Columns[11].Footer("speed");
+        table.Columns[0].Footer("Name");
+        table.Columns[1].Footer("Stage");
+        table.Columns[2].Footer("Type");
+        table.Columns[3].Footer("Attribute");
+        table.Columns[4].Footer("Memory");
+        table.Columns[5].Footer("Equip Slots");
+        table.Columns[6].Footer("HP");
+        table.Columns[7].Footer("SP");
+        table.Columns[8].Footer("Attack");
+        table.Columns[9].Footer("Defence");
+        table.Columns[10].Footer("Intelligence");
+        table.Columns[11].Footer("Speed");
         AnsiConsole.Write(table);
     }
     public static void ChooseSinglePropertyOfAllDigimons(List<DigimonModel> digimons)

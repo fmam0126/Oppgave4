@@ -9,10 +9,14 @@ class Program
     {
         AnsiConsole.Clear();
 
+        DigmimonCSVPath = AnsiConsole.Ask<string>("Input Path to CSV file (or press [green]Enter[/] to use default path):", DigmimonCSVPath);
         DigimonReader reader = new DigimonReader();
 
         List<DigimonModel> digimons = new List<DigimonModel>();
         digimons = reader.ReadCSV(DigmimonCSVPath);
+        
+        
+        
         // foreach (var digimon in digimons)
         // {
         //     Console.WriteLine($"Index: {digimon.Index}, Name: {digimon.Name}, Stage: {digimon.Stage}, Type: {digimon.Type}, Attribute: {digimon.Attribute}, Memory: {digimon.Memory}, Equip Slots: {digimon.EquipSlots}, HP: {digimon.HP}, SP: {digimon.SP}, Attack: {digimon.Attack}, Defence: {digimon.Defence}, Intelligence: {digimon.Intelligence}, Speed: {digimon.Speed}");
