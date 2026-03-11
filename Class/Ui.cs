@@ -2,6 +2,10 @@ using Spectre.Console;
 
 public static class Ui
 {
+    /// <summary>
+    /// Displays a menu to the user and prompts them to select an option using Spectre.Console's SelectionPrompt. Returns a string representing the selected option.
+    /// </summary>
+    /// <returns>The selected option as a string</returns>
     public static string ShowMenu()
     {
         AnsiConsole.MarkupLine("[bold cyan]Welcome to the Digimon Database![/]");
@@ -31,6 +35,10 @@ public static class Ui
                 return string.Empty;
         }
     }
+    /// <summary>
+    /// Displays a table of all digimons with their attributes and stats, using Spectre.Console for formatting.
+    /// </summary>
+    /// <param name="digimons">List of digimons to display</param>
     public static void ShowDigimons(List<DigimonModel> digimons)
     {
         var table = new Table();
@@ -77,6 +85,12 @@ public static class Ui
 
         ShowSortedByChosenStat(new DigimonReader().ReadCSV("DigiDB_digimonlist.csv"), statType);
     }
+
+    /// <summary>
+    /// Shows digimons sorted by a chosen stat in ascending order.
+    /// </summary>
+    /// <param name="digimons">The list of digimons to sort</param>
+    /// <param name="statType">The stat type to sort by</param>
     public static void ShowSortedByChosenStat(List<DigimonModel> digimons, DigimonModel.StatType statType)
     {
         AnsiConsole.MarkupLine($"\nDigimons sorted by {statType}:");
@@ -111,7 +125,9 @@ public static class Ui
         AnsiConsole.Write(table);
     }
 
-
+    /// <summary>
+    /// Prompts the user to select a stat type and enter a threshold value, then uses ShowDigimonsWithStatHigherThanThreshold method to display digimons what that stat and sorts them in ascending order.
+    /// </summary>
     public static void ChooseStatTypeAndThreshold()
     {
         var statType = AnsiConsole.Prompt(
@@ -124,6 +140,12 @@ public static class Ui
 
         ShowDigimonsWithStatHigherThanThreshold(new DigimonReader().ReadCSV("DigiDB_digimonlist.csv"), threshold, statType);
     }
+    /// <summary>
+    /// Shows digimons with a specific stat higher than a threshold, and sorts them by that stat in ascending order.
+    /// </summary>
+    /// <param name="digimons">Digimons List to Filter and Display</param>
+    /// <param name="threshold">The minimum value for the selected stat</param>
+    /// <param name="statType">The stat type to filter and sort by</param>
     public static void ShowDigimonsWithStatHigherThanThreshold(List<DigimonModel> digimons, int threshold, DigimonModel.StatType statType)
     {
         AnsiConsole.MarkupLine($"\nDigimons with {statType} higher than {threshold}:");

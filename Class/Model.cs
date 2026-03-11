@@ -22,7 +22,22 @@ public class DigimonModel
     public int Defence { get; }
     public int Intelligence { get; }
     public int Speed { get; }
-
+/// <summary>
+/// Constructor for the DigimonModel class, which initializes all properties of a digimon based on the provided parameters.
+/// </summary>
+/// <param name="index">The index of the digimon</param>
+/// <param name="name">The name of the digimon</param>
+/// <param name="stage">The stage of the digimon</param>
+/// <param name="type">The type of the digimon</param>
+/// <param name="attribute">The attribute of the digimon</param>
+/// <param name="memory">The memory of the digimon</param>
+/// <param name="equipSlots">The number of equipment slots the digimon has</param>
+/// <param name="hp">The hit points of the digimon</param>
+/// <param name="sp">The skill points of the digimon</param>
+/// <param name="attack">The attack stat of the digimon</param>
+/// <param name="defence">The defence stat of the digimon</param>
+/// <param name="intelligence">The intelligence stat of the digimon</param>
+/// <param name="speed">The speed stat of the digimon</param>
     public DigimonModel(int index, string name, string stage, string type, string attribute, int memory, int equipSlots, int hp, int sp, int attack, int defence, int intelligence, int speed)
     {
         Index = index;

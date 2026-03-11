@@ -1,5 +1,10 @@
 public class DigimonReader
 {
+    /// <summary>
+    /// Reads a CSV file containing digimon data and returns a list of DigimonModel objects representing each digimon in the file. 
+    /// </summary>
+    /// <param name="inputPath">The path to the CSV file</param>
+    /// <returns>A list of DigimonModel objects</returns>
     public List<DigimonModel> ReadCSV(string inputPath)
     {
         // using (var reader = new StreamReader(inputPath))
