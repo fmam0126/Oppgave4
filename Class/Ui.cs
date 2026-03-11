@@ -23,7 +23,7 @@ public static class Ui
         var userInput = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Please select an option:")
-                .AddChoices(new[] { "[green]1.[/] Show all Digimons", "[green]2.[/] Show Digimons sorted by a chosen stat", "[green]3.[/] Show Digimons with a specific stat higher than a threshold", "[green]4.[/] Exit" })
+                .AddChoices(new[] { "[green]1.[/] Show all Digimons", "[green]2.[/] Show Digimons sorted by a chosen stat", "[green]3.[/] Show Digimons with a specific stat higher than a threshold", "[green]4.[/] Show Single Digimon Property","[green]5.[/] Exit" })
         );
 
         switch (userInput)
@@ -34,7 +34,9 @@ public static class Ui
                 return "show_sorted_by_Certain_Stat";
             case "[green]3.[/] Show Digimons with a specific stat higher than a threshold":
                 return "show_stat_higher_than_threshold";
-            case "[green]4.[/] Exit":
+            case "[green]4.[/] Show Single Digimon Property":
+                return "show_single_property_of_all_digimons";
+            case "[green]5.[/] Exit":
                 return "exit";
             default:
                 return string.Empty;
@@ -91,6 +93,46 @@ public static class Ui
         table.Columns[11].Footer("speed");
         AnsiConsole.Write(table);
     }
+    public static void ChooseSinglePropertyOfAllDigimons(List<DigimonModel> digimons)
+    {
+        var property = AnsiConsole.Prompt(
+            new SelectionPrompt<DigimonModel.Properties>()
+                .Title("Select a property to display for all Digimons:")
+                .AddChoices(Enum.GetValues<DigimonModel.Properties>())
+        );
+
+        ShowSinglePropertyOfAllDigimons(digimons, property);
+    }
+    public static void ShowSinglePropertyOfAllDigimons(List<DigimonModel> digimons, DigimonModel.Properties property)
+    {
+        var table = new Table();
+        table.AddColumn("Name");
+        table.AddColumn($"{property}");
+        var filteredDigimons = digimons.Select(p => new { p.Name, Value = property switch
+        {
+            DigimonModel.Properties.Index => p.Index.ToString(),
+            DigimonModel.Properties.Name => p.Name,
+            DigimonModel.Properties.Stage => p.Stage,
+            DigimonModel.Properties.Type => p.Type,
+            DigimonModel.Properties.Attribute => p.Attribute,
+            DigimonModel.Properties.Memory => p.Memory.ToString(),
+            DigimonModel.Properties.EquipSlots => p.EquipSlots.ToString(),
+            DigimonModel.Properties.HP => p.HP.ToString(),
+            DigimonModel.Properties.SP => p.SP.ToString(),
+            DigimonModel.Properties.Attack => p.Attack.ToString(),
+            DigimonModel.Properties.Defence => p.Defence.ToString(),
+            DigimonModel.Properties.Intelligence => p.Intelligence.ToString(),
+            DigimonModel.Properties.Speed => p.Speed.ToString(),
+            _ => string.Empty
+        }}).ToList();
+        foreach (var digimon in filteredDigimons)
+        {
+            table.AddRow($"[green]{digimon.Name}[/]", $"[red]{digimon.Value}[/]");
+        }
+        table.Columns[0].Footer("Name");
+        table.Columns[1].Footer($"{property}");
+        AnsiConsole.Write(table);
+    }
 
     public static void ChooseStatSorting(List<DigimonModel> digimons)
     {
@@ -139,7 +181,7 @@ public static class Ui
             };
             table.AddRow($"[green]{digimon.Name}[/]", $"[red]{value}[/]");
         }
-        table.Columns[0].Footer("name");
+        table.Columns[0].Footer("Name");
         table.Columns[1].Footer($"{statType}");
         AnsiConsole.Write(table);
     }
@@ -217,7 +259,7 @@ public static class Ui
             table.AddRow($"[green]{digimon.Name}[/]", $"[red]{value}[/]");
 
         }
-        table.Columns[0].Footer("name");
+        table.Columns[0].Footer("Name");
         table.Columns[1].Footer($"{statType}");
         AnsiConsole.Write(table);
         // digimons.Where(digimon => digimon.Attack > threshold)

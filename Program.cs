@@ -52,6 +52,9 @@ class Program
                     Thread.Sleep(2000);
                     Environment.Exit(0);
                     break;
+                case "show_single_property_of_all_digimons":
+                    Ui.ChooseSinglePropertyOfAllDigimons(digimons);
+                    break;
                 default:
                     AnsiConsole.MarkupLine("[bold red]Invalid option selected. Please try again.[/]");
                     break;

@@ -1,5 +1,21 @@
 public class DigimonModel
 {
+    public enum Properties
+    {
+        Index,
+        Name,
+        Stage,
+        Type,
+        Attribute,
+        Memory,
+        EquipSlots,
+        HP,
+        SP,
+        Attack,
+        Defence,
+        Intelligence,
+        Speed
+    }
     public enum StatType
     {
         HP,
