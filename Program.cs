@@ -7,7 +7,7 @@ class Program
     public static string DigmimonCSVPath { get; set; } = "DigiDB_digimonlist.csv";
     static void Main(string[] args)
     {
-        
+        AnsiConsole.Clear();
 
         DigimonReader reader = new DigimonReader();
 
