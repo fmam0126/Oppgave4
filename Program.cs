@@ -1,15 +1,18 @@
-﻿using Spectre.Console;
+﻿using System.Security.Cryptography.X509Certificates;
+using Spectre.Console;
 namespace Oppgave4;
 
 class Program
 {
+    public static string DigmimonCSVPath { get; set; } = "DigiDB_digimonlist.csv";
     static void Main(string[] args)
     {
+        
 
         DigimonReader reader = new DigimonReader();
 
         List<DigimonModel> digimons = new List<DigimonModel>();
-        digimons = reader.ReadCSV("DigiDB_digimonlist.csv");
+        digimons = reader.ReadCSV(DigmimonCSVPath);
         // foreach (var digimon in digimons)
         // {
         //     Console.WriteLine($"Index: {digimon.Index}, Name: {digimon.Name}, Stage: {digimon.Stage}, Type: {digimon.Type}, Attribute: {digimon.Attribute}, Memory: {digimon.Memory}, Equip Slots: {digimon.EquipSlots}, HP: {digimon.HP}, SP: {digimon.SP}, Attack: {digimon.Attack}, Defence: {digimon.Defence}, Intelligence: {digimon.Intelligence}, Speed: {digimon.Speed}");
@@ -39,10 +42,10 @@ class Program
                     Ui.ShowDigimons(digimons);
                     break;
                 case "show_sorted_by_Certain_Stat":
-                    Ui.ChooseStatSorting();
+                    Ui.ChooseStatSorting(digimons);
                     break;
                 case "show_stat_higher_than_threshold":
-                    Ui.ChooseStatTypeAndThreshold();
+                    Ui.ChooseStatTypeAndThreshold(digimons);
                     break;
                 case "exit":
                     AnsiConsole.MarkupLine("[bold red]Exiting the program. Goodbye![/]");

@@ -55,4 +55,17 @@ public class DigimonReader
             .ToList();
         return digimonList;
     }
+
+    public static int SafeParseInt(string input)
+    {
+        if (int.TryParse(input, out int result))
+        {
+            return result;
+        }
+        else
+        {
+            Ui.ParseWarning(input);
+            return 0;
+        }
+    }
 }

@@ -1,7 +1,12 @@
+using Oppgave4;
 using Spectre.Console;
 
 public static class Ui
 {
+    public static void ParseWarning(string input)
+    {
+        AnsiConsole.MarkupLine($"[bold red]Warning:[/] Unable to parse '{input}' as an integer. Please Check the CSV file.");
+    }
     /// <summary>
     /// Displays a menu to the user and prompts them to select an option using Spectre.Console's SelectionPrompt. Returns a string representing the selected option.
     /// </summary>
@@ -75,7 +80,7 @@ public static class Ui
         AnsiConsole.Write(table);
     }
 
-    public static void ChooseStatSorting()
+    public static void ChooseStatSorting(List<DigimonModel> digimons)
     {
         var statType = AnsiConsole.Prompt(
             new SelectionPrompt<DigimonModel.StatType>()
@@ -83,7 +88,7 @@ public static class Ui
                 .AddChoices(Enum.GetValues<DigimonModel.StatType>())
         );
 
-        ShowSortedByChosenStat(new DigimonReader().ReadCSV("DigiDB_digimonlist.csv"), statType);
+        ShowSortedByChosenStat(digimons, statType);
     }
 
     /// <summary>
@@ -128,7 +133,7 @@ public static class Ui
     /// <summary>
     /// Prompts the user to select a stat type and enter a threshold value, then uses ShowDigimonsWithStatHigherThanThreshold method to display digimons what that stat and sorts them in ascending order.
     /// </summary>
-    public static void ChooseStatTypeAndThreshold()
+    public static void ChooseStatTypeAndThreshold(List<DigimonModel> digimons)
     {
         var statType = AnsiConsole.Prompt(
             new SelectionPrompt<DigimonModel.StatType>()
@@ -138,7 +143,7 @@ public static class Ui
 
         var threshold = AnsiConsole.Ask<int>("Enter the threshold value:");
 
-        ShowDigimonsWithStatHigherThanThreshold(new DigimonReader().ReadCSV("DigiDB_digimonlist.csv"), threshold, statType);
+        ShowDigimonsWithStatHigherThanThreshold(digimons, threshold, statType);
     }
     /// <summary>
     /// Shows digimons with a specific stat higher than a threshold, and sorts them by that stat in ascending order.
