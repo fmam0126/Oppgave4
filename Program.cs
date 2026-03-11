@@ -1,9 +1,11 @@
-﻿namespace Oppgave4;
+﻿using Spectre.Console;
+namespace Oppgave4;
 
 class Program
 {
     static void Main(string[] args)
     {
+
         DigimonReader reader = new DigimonReader();
 
         List<DigimonModel> digimons = new List<DigimonModel>();
@@ -14,20 +16,43 @@ class Program
         // }
 
         /// Sort by Attack
-        Console.WriteLine("\nDigimons sorted by Attack:");
-        digimons.OrderBy(digimon => digimon.Attack)
-                                        .ToList()
-                                        .ForEach(digimon => Console.WriteLine($"Name: {digimon.Name}, Attack: {digimon.Attack}"));
+        // Ui.ShowSortedByAttack(digimons);
 
         /// select all digimons with Higher Attack than 200
-        Console.WriteLine("\nDigimons with Attack higher than 200:");
-        digimons.Where(digimon => digimon.Attack > 200)
-                                        .ToList()
-                                        .ForEach(digimon => Console.WriteLine($"Name: {digimon.Name}, Attack: {digimon.Attack}"));
+        // Console.WriteLine("\nDigimons with Attack higher than 200:");
+        // digimons.Where(digimon => digimon.Attack > 200)
+        //                                 .ToList()
+        //                                 .ForEach(digimon => Console.WriteLine($"Name: {digimon.Name}, Attack: {digimon.Attack}"));
 
 
-        digimons.Select(digimon => new { digimon.Name, digimon.Stage, digimon.Type, digimon.Attribute })
-                                        .ToList()
-                                        .ForEach(digimon => Console.WriteLine($"Name: {digimon.Name}, Stage: {digimon.Stage}, Type: {digimon.Type}, Attribute: {digimon.Attribute}"));
+        // digimons.Select(digimon => new { digimon.Name, digimon.Stage, digimon.Type, digimon.Attribute })
+        //                                 .ToList()
+        //                                 .ForEach(digimon => Console.WriteLine($"Name: {digimon.Name}, Stage: {digimon.Stage}, Type: {digimon.Type}, Attribute: {digimon.Attribute}"));
+
+        // Ui.ShowDigimonsWithStatHigherThanThreshold(digimons, 1000, DigimonModel.StatType.HP);
+        while (true)
+        {
+            var selectedOption = Ui.ShowMenu();
+            switch (selectedOption)
+            {
+                case "show_all_digimons":
+                    Ui.ShowDigimons(digimons);
+                    break;
+                case "show_sorted_by_attack":
+                    Ui.ShowSortedByAttack(digimons);
+                    break;
+                case "show_stat_higher_than_threshold":
+                    Ui.ChooseStatTypeAndThreshold();
+                    break;
+                case "exit":
+                    AnsiConsole.MarkupLine("[bold red]Exiting the program. Goodbye![/]");
+                    Thread.Sleep(2000);
+                    Environment.Exit(0);
+                    break;
+                default:
+                    AnsiConsole.MarkupLine("[bold red]Invalid option selected. Please try again.[/]");
+                    break;
+            }
+        }
     }
 }

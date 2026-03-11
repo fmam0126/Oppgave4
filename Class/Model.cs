@@ -1,5 +1,14 @@
 public class DigimonModel
 {
+    public enum StatType
+    {
+        HP,
+        SP,
+        Attack,
+        Defence,
+        Intelligence,
+        Speed
+    }
     public int Index { get; }
     public string Name { get; }
     public string Stage { get; }
