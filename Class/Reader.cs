@@ -38,19 +38,19 @@ public class DigimonReader
             .Skip(1)
             .Select(line => line.Split(','))
             .Select(values => new DigimonModel(
-                index: int.Parse(values[0]),
+                index: SafeParseInt(values[0]),
                 name: values[1],
                 stage: values[2],
                 type: values[3],
                 attribute: values[4],
-                memory: int.Parse(values[5]),
-                equipSlots: int.Parse(values[6]),
-                hp: int.Parse(values[7]),
-                sp: int.Parse(values[8]),
-                attack: int.Parse(values[9]),
-                defence: int.Parse(values[10]),
-                intelligence: int.Parse(values[11]),
-                speed: int.Parse(values[12])
+                memory: SafeParseInt(values[5]),
+                equipSlots: SafeParseInt(values[6]),
+                hp: SafeParseInt(values[7]),
+                sp: SafeParseInt(values[8]),
+                attack: SafeParseInt(values[9]),
+                defence: SafeParseInt(values[10]),
+                intelligence: SafeParseInt(values[11]),
+                speed: SafeParseInt(values[12])
             ))
             .ToList();
         return digimonList;
